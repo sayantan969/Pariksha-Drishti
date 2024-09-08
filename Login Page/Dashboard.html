@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Proctor</title>
+    <link rel="stylesheet" href="./Dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h3>AI Proctor</h3>
+        </div>
+        <div class="main">
+            <div class="options">
+                Joining Code <br>
+                <span class="box">
+                    <span id="codeDisplay"></span>
+                </span>
+                <button id="regenerateBtn">Regenerate</button><br>
+                <br>
+                <div class="box2">
+                    <form id="emailForm">
+                        <input type="email" id="emailInput" placeholder="Enter email address" required>
+                        <button type="submit">Send Joining Code</button>
+                    </form>
+                    <p id="emailStatus"></p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+    <script src="./codegen.js"></script>
+    <script src="./emailSender.js"></script>
+</body>
+</html>

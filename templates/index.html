@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Page</title>
+
+    <style>
+        /* Global styles */
+        @keyframes colorChange {
+            0% { background-color: #f7fafc; }
+            25% { background-color: #f0f4f8; }
+            50% { background-color: #e6eefc; }
+            75% { background-color: #f0e4fa; }
+            100% { background-color: #f7fafc; }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f7fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            animation: colorChange 15s infinite;
+            transition: background-color 0.5s ease;
+        }
+
+        .container {
+            text-align: center;
+            background: linear-gradient(145deg, #f0f4f8, #fff);
+            padding: 60px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideIn 1s ease forwards;
+            border: 1px solid #d1e0ee;
+            position: relative;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #34495e;
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            animation: fadeIn 1.5s ease-in-out;
+            text-transform: uppercase;
+        }
+
+        form {
+            margin-top: 35px;
+        }
+
+        @keyframes buttonPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        button {
+            font-size: 22px;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 12px;
+            background-color: #1abc9c;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+            animation: buttonPulse 2.5s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            background-color: #16a085;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: skewX(-15deg);
+            transition: left 0.5s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        /* Loading animation */
+        @keyframes loadingAnimation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading {
+            display: none;
+            border: 6px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 6px solid #3498db;
+            width: 45px;
+            height: 45px;
+            animation: loadingAnimation 2s linear infinite;
+            margin: 25px auto;
+        }
+
+        /* Minimalist background pattern */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle, rgba(220, 220, 220, 0.1) 1px, transparent 1px);
+            background-size: 80px 80px;
+            z-index: -1;
+        }
+    </style>
+
+    <script>
+        function showLoading() {
+            // Show loading spinner
+            document.querySelector('.loading').style.display = 'block';
+            
+            // Change button text
+            const button = document.getElementById('startButton');
+            button.textContent = 'Detecting...';
+            
+            // Disable button to prevent multiple submissions
+            button.disabled = true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Video and Audio Detection</h1>
+        <form action="{{ url_for('start_detection') }}" method="post" onsubmit="showLoading()">
+            <button id="startButton" type="submit">Start Detection</button>
+            <div class="loading"></div>
+        </form>
+    </div>
+</body>
+</html>
